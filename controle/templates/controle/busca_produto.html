@@ -1,0 +1,98 @@
+﻿{% extends 'base_controle.html' %}
+{% block header %}
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/controle"><img src="../../static/images/logo.png" alt="HeadTec logo"/></a>
+            <div class="collapse navbar-collapse" >
+              <ul class="navbar-nav mr-auto nav-pills nav">
+                <li class="nav-item ">
+                  <a class="nav-link" href="/controle">Inicio </a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/controle/empresa">Empresa<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/controle">Casa</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/controle">Pessoal</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/relatorios">Relatorios</a>
+                </li>
+              </ul>
+              <ul class="navbar-nav float-right">
+                <li class="nav-item">
+                  <a class="nav-link form-inline my-2 my-md-0" href="/logout">Sair</a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        </nav>
+        {% endblock %}
+{% block body %}
+{% load static %}
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar menu-lateral">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/controle/empresa">Empresa </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/ordem">Ordens</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/cliente/cliente">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/contas/buscar_prod">Contas a pagar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/contas/contas_receber">Contas a receber</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/controle/produto">Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link active" style="color: #fff; background-color: #57a695; border-color: #57a695;" href="/controle/busca_produto">&nbsp;&nbsp;&nbsp;Buscar Produto<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/controle/servico">Servicos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link1 nav-link " href="/caixa/caixa">Caixa</a>
+                </li>
+            </ul>
+         </nav>
+        </div>
+    </div>
+<main class="col-sm-9 offset-sm-3 col-md-12 offset-md-2 pt-3 main-fundo">
+    <section class="row text-center placeholders">
+        <div class="jumbotron busca">
+            <div class="container">
+                <h1>Busca Produto</h1>
+                <form method="POST" action="/controle/busca_produto">
+                    {% csrf_token %}
+                    <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <label for="inputName">Produto<strong>*</strong></label>
+                        <select autofocus name="prod_id" class="form-control">
+                            <option disabled selected> -- Produtos -- </option>
+                            {% for produto in prods %}
+                            <option value="{{produto.id}}">{{produto.nome}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <button type="submit" class="btn btn-primary float-right" >Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
